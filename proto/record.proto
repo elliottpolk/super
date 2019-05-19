@@ -1,0 +1,26 @@
+syntax = "proto3";
+package super;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/elliottpolk/super";
+option java_multiple_files = true;
+option java_outer_classname = "RecordProto";
+option java_package = "com.elliottpolk.super";
+
+message RecordInfo {
+	google.protobuf.Timestamp created = 1;
+	string created_by = 2;
+
+	google.protobuf.Timestamp updated = 3;
+	string updated_by = 4;
+
+	enum Status {
+		draft = 0;
+		active = 1;
+		archived = 2;
+		invalid = 3;
+	}
+
+	Status status = 5;
+}

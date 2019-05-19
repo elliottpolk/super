@@ -1,0 +1,73 @@
+syntax = "proto3";
+package super;
+
+import "dope.proto";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/elliottpolk/super";
+option java_multiple_files = true;
+option java_outer_classname = "DopeServiceProto";
+option java_package = "com.elliottpolk.super";
+
+message Empty {
+  // unique identifier of the original incoming request to help troubleshoot
+  string request_id = 1;
+}
+
+message DopeRequest {
+  // unique identifier to help troubleshoot each request
+  string request_id = 1;
+
+  // username of the one making the request
+  string username = 2;
+
+  // unique identifier of the super.Dope
+  string id = 3;
+
+  // dataset to process
+  repeated super.Dope payload = 4;
+}
+
+message DopeResponse {
+  // unique identifier of the original incoming request to help troubleshoot
+  string request_id = 1;
+
+  repeated super.Dope payload = 2;
+}
+
+service DopeService {
+  // create new Dope item(s)
+  rpc Create(DopeRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/api/v1/dopes"
+      body: "*"
+    };
+  }
+
+  // retrieve a list of Dope items
+  rpc Retrieve(DopeRequest) returns (DopeResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/dopes"
+
+      additional_bindings {
+        get: "/api/v1/dopes/{id}"
+      }
+    };
+  }
+
+  // update Dope item(s)
+  rpc Update(DopeRequest) returns (DopeResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/dopes/{id}"
+      body: "*"
+    };
+  }
+
+  // delete Dope item(s)
+  rpc Delete(DopeRequest) returns (Empty) {
+    option (google.api.http) = {
+      delete: "/api/v1/dopes"
+      body: "*"
+    };
+  }
+}

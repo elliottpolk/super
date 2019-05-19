@@ -1,0 +1,29 @@
+syntax = "proto3";
+package super;
+
+import "record.proto";
+
+option go_package = "github.com/elliottpolk/super";
+option java_multiple_files = true;
+option java_outer_classname = "DopeProto";
+option java_package = "com.elliottpolk.super";
+
+message Dope {
+  // standard record values
+  super.RecordInfo record_info = 1;
+
+  // unique identifier
+  string id = 2;
+
+  // super dope field 1
+  string dope_1 = 3;
+
+  // super dope field 2
+  int32 dope_2 = 4;
+
+  // super dope field 3
+  repeated string dope_3 = 5;
+
+  // super dope field 4
+  bool dope_4 = 6;
+}
